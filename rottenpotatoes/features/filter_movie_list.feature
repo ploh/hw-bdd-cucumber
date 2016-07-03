@@ -1,5 +1,5 @@
 Feature: display list of movies filtered by MPAA rating
- 
+
   As a concerned parent
   So that I can quickly browse movies appropriate for my family
   I want to see movies matching only certain MPAA ratings
@@ -23,10 +23,17 @@ Background: movies have been added to database
 
 Scenario: restrict to movies with 'PG' or 'R' ratings
   # enter step(s) to check the 'PG' and 'R' checkboxes
+  When I check the following ratings: PG, R
   # enter step(s) to uncheck all other checkboxes
+  And I uncheck the following ratings: PG-13, G, NC-17
   # enter step to "submit" the search form on the homepage
+  And I click on submit
   # enter step(s) to ensure that PG and R movies are visible
+  Then we should see 'The Incredibles', 'The Terminator'
+  And we should see 'Raiders of the Lost Ark', 'When Harry Met Sally', 'Amelie'
   # enter step(s) to ensure that other movies are not visible
+  And we should not see 'Aladdin', 'The Help', 'Chocolat', '2001: A Space Odyssey'
+  And we should not se 'Chicken Run'
 
 Scenario: all ratings selected
   # see assignment

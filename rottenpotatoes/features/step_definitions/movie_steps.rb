@@ -25,13 +25,12 @@ When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
   # HINT: use String#split to split up the rating_list, then
   #   iterate over the ratings and reuse the "When I check..." or
   #   "When I uncheck..." steps in lines 89-95 of web_steps.rb
-  # save_and_open_page
   rating_list.split(', ').each do |rating|
-    field = "ratings_#{rating}"
-    unless uncheck
-      check field
+    field = "ratings[#{rating}]"
+    if uncheck
+      step "I uncheck \"#{field}\""
     else
-      uncheck field
+      step "I check \"#{field}\""
     end
   end
 end
